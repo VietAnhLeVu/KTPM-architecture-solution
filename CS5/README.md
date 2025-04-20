@@ -10,7 +10,7 @@ Các trang web trên có thể chặn lưu lượng truy cập bất thường d
 
 ## Dữ liệu
 
-Các thông tin cần thu thập bao gồm tên bản release, nội dung release và các commit thay đổi trong bản release đó. Schema của cơ sở dữ liệu mẫu nằm trong file `db.sql`.
+Các thông tin cần thu thập bao gồm tên bản release, nội dung release và các commit thay đổi trong bản release đó. Schema của cơ sở dữ liệu mẫu nằm trong file `schema.db` (mở bằng `sqlite`).
 
 ## Yêu cầu triển khai
 
@@ -18,7 +18,7 @@ Các thông tin cần thu thập bao gồm tên bản release, nội dung releas
 |--|--|
 | ![Static Badge](https://img.shields.io/badge/REQUIRED-easy-green) | Triển khai được crawler cơ bản, thu thập tự động (có thể bị chặn) |
 | ![Static Badge](https://img.shields.io/badge/REQUIRED-easy-green) | Đánh giá và nêu nguyên nhân của các vấn đề gặp phải |
-| ![Static Badge](https://img.shields.io/badge/REQUIRED-hard-red) | Cải tiến và so sánh hiệu năng với phiên bản ban đầu |
+| ![Static Badge](https://img.shields.io/badge/REQUIRED-hard-red) | Cải tiến và so sánh hiệu suất với phiên bản ban đầu |
 | ![Static Badge](https://img.shields.io/badge/OPTIONAL-easy-green) | Tối ưu quá trình đọc ghi database |
 | ![Static Badge](https://img.shields.io/badge/OPTIONAL-medium-yellow) | Song song hoá (đa luồng) quá trình crawl |
 | ![Static Badge](https://img.shields.io/badge/OPTIONAL-medium-yellow) | Giải quyết vấn đề crawler bị trang web chặn khi truy cập quá nhiều bằng một số kỹ thuật hoặc design pattern tương ứng |
