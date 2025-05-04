@@ -2,32 +2,32 @@ const express = require('express');
 const lib = require('./utils');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
-const redis = require('redis');
+// const redis = require('redis');
 
 // Load environment variables
 // const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 
-const redisClient = redis.createClient({
-    url: "redis://default:ZGhn1fgk2YlrEwjwkUETLfAJdzJOInXC@redis-19602.c252.ap-southeast-1-1.ec2.redns.redis-cloud.com:19602", // Now using full Redis URL
-});
+// const redisClient = redis.createClient({
+//     url: "redis://default:ZGhn1fgk2YlrEwjwkUETLfAJdzJOInXC@redis-19602.c252.ap-southeast-1-1.ec2.redns.redis-cloud.com:19602", // Now using full Redis URL
+// });
 
-// Handle Redis connection events
-redisClient.on('connect', () => {
-    console.log('Connected to Redis');
-});
+// // Handle Redis connection events
+// redisClient.on('connect', () => {
+//     console.log('Connected to Redis');
+// });
 
-redisClient.on('error', (err) => {
-    console.error('Redis error:', err);
-});
+// redisClient.on('error', (err) => {
+//     console.error('Redis error:', err);
+// });
 
 // Connect the Redis client
-(async () => {
-    try {
-        await redisClient.connect();
-    } catch (err) {
-        console.error('Failed to connect to Redis:', err);
-    }
-})();
+// (async () => {
+//     try {
+//         await redisClient.connect();
+//     } catch (err) {
+//         console.error('Failed to connect to Redis:', err);
+//     }
+// })();
 
 const app = express();
 const port = process.env.PORT || 3000; // Important for cloud platforms
@@ -71,12 +71,12 @@ app.get('/short/:id', async (req, res) => {
         const id = req.params.id;
 
         // 1. Check cache first
-        let cachedUrl = await redisClient.get(id);
-        if (cachedUrl) {
-            console.log('Cache hit');
-            console.log(cachedUrl);
-            return res.redirect(cachedUrl);
-        }
+        // let cachedUrl = await redisClient.get(id);
+        // if (cachedUrl) {
+        //     console.log('Cache hit');
+        //     console.log(cachedUrl);
+        //     return res.redirect(cachedUrl);
+        // }
 
         console.log('Cache miss');
         // 2. If not in cache, fetch from database
@@ -86,7 +86,7 @@ app.get('/short/:id', async (req, res) => {
         }
 
         // 3. Set the fetched data in cache (with optional expiration)
-        redisClient.setEx(id, 3600, url); // Cache for 1 hour
+        // redisClient.setEx(id, 3600, url); // Cache for 1 hour
 
         // 4. Redirect to the fetched URL
         res.redirect(url);
@@ -119,7 +119,7 @@ app.post('/create', async (req, res) => {
         const newID = await lib.shortUrl(url);
 
         // Cache the newly created short URL immediately if you want (optional optimization)
-        redisClient.setEx(newID, 3600, url); // Cache for 1 hour
+        // redisClient.setEx(newID, 3600, url); // Cache for 1 hour
 
         res.send(newID);
     } catch (err) {
